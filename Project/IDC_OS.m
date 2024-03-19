@@ -41,7 +41,6 @@ K_D(6,6) = 3;
 
 % Weights
 weights = [0.1, 0.1, 0.1, 1, 1, 1]';
-%initial_guess = zeros(1, n_joints);
 initialguess = robot.homeConfiguration;
 
 % Initial, A
@@ -52,21 +51,21 @@ t0 = 0;
 x0_pose = trvec2tform([x0(1), x0(2), x0(3)]) * eul2tform([x0(4), x0(5), x0(6)]);
 
 % B
-x1 = transpose([0.5, 0.5, 0.5, 0, 0, 0]);
+x1 = transpose([0.5, 0.25, 0.25, 0, 0, 0]);
 xd1 = zeros(n_joints,1);
 xdd1 = zeros(n_joints,1);
-t1 = 5;
+t1 = 3;
 x1_pose = trvec2tform([x1(1), x1(2), x1(3)]) * eul2tform([x1(4), x1(5), x1(6)]);
 
 % C
-x2 = transpose([0.4, 0.4, 0.4, 0, 0, 0]);
+x2 = transpose([0.4, 0.25, 0.25, 0, 0, 0]);
 xd2 = zeros(n_joints,1);
 xdd2 = zeros(n_joints,1);
-t2 = 10;
+t2 = 6;
 x2_pose = trvec2tform([x2(1), x2(2), x2(3)]) * eul2tform([x2(4), x2(5), x2(6)]);
 
 % Final, A
-t3 = 15;
+t3 = 9;
 
 %------------------------------------------------------------------------------
 %% Perform simulation in simulink
