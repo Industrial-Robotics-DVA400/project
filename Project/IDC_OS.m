@@ -41,7 +41,8 @@ K_D(6,6) = 3;
 
 % Weights
 weights = [0.1, 0.1, 0.1, 1, 1, 1]';
-initial_guess = zeros(1, n_joints);
+%initial_guess = zeros(1, n_joints);
+initialguess = robot.homeConfiguration;
 
 % Initial, A
 x0 = transpose([0.25, 0.25, 0.25, 0, 0, 0]);
@@ -86,7 +87,7 @@ figure();
 sampleTime = 0.001;
 
 numSamples = size(out.q,3);
-jointsValueMat = reshape(out.q,[nJoints,numSamples]);
+jointsValueMat = reshape(out.q,[n_joints,numSamples]);
 
 handtrace = true;
 showRobStates(robot,jointsValueMat,sampleTime,'handtrace',handtrace,'showedFPS',60,'PreservePlot',false);
