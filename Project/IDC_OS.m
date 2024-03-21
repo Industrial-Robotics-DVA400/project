@@ -57,12 +57,10 @@ t0 = 0;
 
 % B
 x1 = transpose([0.15, 0.10, 0.10, 0, 0, 0]);
-x1_pose = trvec2tform([x1(1), x1(2), x1(3)]) * eul2tform([x1(4), x1(5), x1(6)]);
 t1 = 3;
 
 % C
 x2 = transpose([0.15, 0.15, 0.10, 0, 0, 0]);
-x2_pose = trvec2tform([x2(1), x2(2), x2(3)]) * eul2tform([x2(4), x2(5), x2(6)]);
 t2 = 6;
 
 % Final, A
