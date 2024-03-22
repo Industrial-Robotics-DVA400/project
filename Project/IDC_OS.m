@@ -17,7 +17,6 @@ sampleTime = 0.001;
 n_joints = 6;
 robot = loadrobot("universalUR5");
 robot.DataFormat = 'column';
-robot.Gravity = [0,0,-9.81]';
 
 showdetails(robot)
 
@@ -26,45 +25,39 @@ showdetails(robot)
 %------------------------------------------------------------------------------
 
 % Weights
-weights = [0.1, 0.1, 0.1, 1, 1, 1]';
+weights = transpose([0.1, 0.1, 0.1, 1, 1, 1]);
 initialguess = robot.homeConfiguration;
 
 % Proportional matrix
-K_P = 0.5*eye(n_joints);
-K_P(4,4) = 3;
-K_P(5,5) = 3;
-K_P(6,6) = 3;
+K_P = 0.00001*eye(n_joints);
 
 % Derivative matrix
-K_D = 0.5*eye(n_joints);
-K_D(4,4) = 3;
-K_D(5,5) = 3;
-K_D(6,6) = 3;
+K_D = 0.01*eye(n_joints);
 
 %------------------------------------------------------------------------------
 %% Define positions (via points)
 % A = 0, B = 1, C = 2
 %------------------------------------------------------------------------------
 
-% 0 initial velocity and acceleration
+% 0 initial velocity and acceleration (unused)
 xd = zeros(n_joints,1);
 xdd = zeros(n_joints,1);
 
 % Initial, A
-x0 = transpose([0.10, 0.10, 0.10, 0, 0, 0]);
-x0_pose = trvec2tform([x0(1), x0(2), x0(3)]) * eul2tform([x0(4), x0(5), x0(6)]);
+x0 = transpose([0.20, 0.20, 0.20, 0, 0, 0]);
+x0_pose = makehgtform('translate', x0(1:3,:) ,'xrotate',x0(4),'yrotate',x0(5),'zrotate',x0(6));
 t0 = 0;
 
 % B
-x1 = transpose([0.15, 0.10, 0.10, 0, 0, 0]);
-t1 = 3;
+x1 = transpose([0.23, 0.20, 0.20, 0, 0, 0]);
+t1 = 5;
 
 % C
-x2 = transpose([0.15, 0.15, 0.10, 0, 0, 0]);
-t2 = 6;
+x2 = transpose([0.23, 0.23, 0.20, 0, 0, 0]);
+t2 = 10;
 
 % Final, A
-t3 = 9;
+t3 = 15;
 
 %------------------------------------------------------------------------------
 %% Perform simulation in simulink
