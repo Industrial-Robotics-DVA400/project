@@ -17,6 +17,7 @@ sampleTime = 0.001;
 n_joints = 6;
 robot = loadrobot("universalUR5");
 robot.DataFormat = 'column';
+robot.Gravity = [0,0,-9.81]';
 
 showdetails(robot)
 
@@ -25,14 +26,14 @@ showdetails(robot)
 %------------------------------------------------------------------------------
 
 % Weights
-weights = transpose([0.1, 0.1, 0.1, 1, 1, 1]);
+weights = transpose([1, 1, 1, 1, 1, 1]);
 initialguess = robot.homeConfiguration;
 
 % Proportional matrix
-K_P = 0.00001*eye(n_joints);
+K_P = 1*eye(n_joints);
 
 % Derivative matrix
-K_D = 0.01*eye(n_joints);
+K_D = 1*eye(n_joints);
 
 %------------------------------------------------------------------------------
 %% Define positions (via points)
@@ -57,7 +58,7 @@ x2 = transpose([0.23, 0.23, 0.20, 0, 0, 0]);
 t2 = 10;
 
 % Final, A
-t3 = 15;
+t3 = 100;
 
 %------------------------------------------------------------------------------
 %% Perform simulation in simulink
