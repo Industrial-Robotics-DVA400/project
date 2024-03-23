@@ -26,14 +26,21 @@ showdetails(robot)
 %------------------------------------------------------------------------------
 
 % Weights
-weights = transpose([1, 1, 1, 1, 1, 1]);
+% Based on testing, first 3 elements are for orientation, last 3 for position
+weights = transpose([0.1, 0.1, 0.1, 1, 1, 1]);
 initialguess = robot.homeConfiguration;
 
 % Proportional matrix
-K_P = 1*eye(n_joints);
+K_P = 0.001*eye(n_joints);
+K_P(4,4) = 0.1*K_P(4,4);
+K_P(5,5) = 0.1*K_P(5,5);
+K_P(6,6) = 0.1*K_P(6,6);
 
 % Derivative matrix
-K_D = 1*eye(n_joints);
+K_D = 0.01*eye(n_joints);
+K_D(4,4) = 0.1*K_D(4,4);
+K_D(5,5) = 0.1*K_D(5,5);
+K_D(6,6) = 0.1*K_D(6,6);
 
 %------------------------------------------------------------------------------
 %% Define positions (via points)
@@ -46,8 +53,9 @@ xdd = zeros(n_joints,1);
 
 % Initial, A
 x0 = transpose([0.20, 0.20, 0.20, 0, 0, 0]);
-x0_pose = makehgtform('translate', x0(1:3,:) ,'xrotate',x0(4),'yrotate',x0(5),'zrotate',x0(6));
 t0 = 0;
+% For setting initial condition of integrator
+x0_pose = makehgtform('translate', x0(1:3,:) ,'xrotate',x0(4),'yrotate',x0(5),'zrotate',x0(6));
 
 % B
 x1 = transpose([0.23, 0.20, 0.20, 0, 0, 0]);
