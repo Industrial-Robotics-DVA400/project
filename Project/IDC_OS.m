@@ -31,13 +31,13 @@ weights = transpose([0.1, 0.1, 0.1, 1, 1, 1]);
 initialguess = robot.homeConfiguration;
 
 % Proportional matrix
-K_P = 0.001*eye(n_joints);
+K_P = 0*eye(n_joints);
 K_P(4,4) = 0.1*K_P(4,4);
 K_P(5,5) = 0.1*K_P(5,5);
 K_P(6,6) = 0.1*K_P(6,6);
 
 % Derivative matrix
-K_D = 0.01*eye(n_joints);
+K_D = 0*eye(n_joints);
 K_D(4,4) = 0.1*K_D(4,4);
 K_D(5,5) = 0.1*K_D(5,5);
 K_D(6,6) = 0.1*K_D(6,6);
@@ -52,17 +52,17 @@ xd = zeros(n_joints,1);
 xdd = zeros(n_joints,1);
 
 % Initial, A
-x0 = transpose([0.20, 0.20, 0.20, 0, 0, 0]);
+x0 = transpose([0.30, 0.30, 0.30, 0, 0, 0]);
 t0 = 0;
 % For setting initial condition of integrator
-x0_pose = makehgtform('translate', x0(1:3,:) ,'xrotate',x0(4),'yrotate',x0(5),'zrotate',x0(6));
+x0_pose = trvec2tform([x0(1), x0(2), x0(3)]) * eul2tform([x0(4), x0(5), x0(6)]);
 
 % B
-x1 = transpose([0.23, 0.20, 0.20, 0, 0, 0]);
+x1 = transpose([0.33, 0.30, 0.30, 0, 0, 0]);
 t1 = 5;
 
 % C
-x2 = transpose([0.23, 0.23, 0.20, 0, 0, 0]);
+x2 = transpose([0.33, 0.33, 0.30, 0, 0, 0]);
 t2 = 10;
 
 % Final, A
