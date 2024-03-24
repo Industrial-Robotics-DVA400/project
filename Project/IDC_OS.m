@@ -31,13 +31,13 @@ weights = transpose([0.1, 0.1, 0.1, 1, 1, 1]);
 initialguess = robot.homeConfiguration;
 
 % Proportional matrix
-K_P = 1*eye(n_joints);
+K_P = 2*eye(n_joints);
 K_P(4,4) = 0.1*K_P(4,4);
 K_P(5,5) = 0.1*K_P(5,5);
 K_P(6,6) = 0.1*K_P(6,6);
 
 % Derivative matrix
-K_D = 0.5*eye(n_joints);
+K_D = 1*eye(n_joints);
 K_D(4,4) = 0.1*K_D(4,4);
 K_D(5,5) = 0.1*K_D(5,5);
 K_D(6,6) = 0.1*K_D(6,6);
@@ -47,9 +47,8 @@ K_D(6,6) = 0.1*K_D(6,6);
 % A = 0, B = 1, C = 2
 %------------------------------------------------------------------------------
 
-% 0 initial velocity and acceleration (unused)
+% 0 initial velocity
 xd = zeros(n_joints,1);
-xdd = zeros(n_joints,1);
 
 % Initial, A
 x0 = transpose([0.30, 0.30, 0.30, 0, 0, 0]);
