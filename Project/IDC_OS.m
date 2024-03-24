@@ -31,13 +31,13 @@ weights = transpose([0.1, 0.1, 0.1, 1, 1, 1]);
 initialguess = robot.homeConfiguration;
 
 % Proportional matrix
-K_P = 0*eye(n_joints);
+K_P = 1*eye(n_joints);
 K_P(4,4) = 0.1*K_P(4,4);
 K_P(5,5) = 0.1*K_P(5,5);
 K_P(6,6) = 0.1*K_P(6,6);
 
 % Derivative matrix
-K_D = 0*eye(n_joints);
+K_D = 0.5*eye(n_joints);
 K_D(4,4) = 0.1*K_D(4,4);
 K_D(5,5) = 0.1*K_D(5,5);
 K_D(6,6) = 0.1*K_D(6,6);
@@ -58,15 +58,15 @@ t0 = 0;
 x0_pose = trvec2tform([x0(1), x0(2), x0(3)]) * eul2tform([x0(4), x0(5), x0(6)]);
 
 % B
-x1 = transpose([0.33, 0.30, 0.30, 0, 0, 0]);
-t1 = 5;
+x1 = transpose([0.40, 0.30, 0.30, 0, 0, 0]);
+t1 = 10;
 
 % C
-x2 = transpose([0.33, 0.33, 0.30, 0, 0, 0]);
-t2 = 10;
+x2 = transpose([0.40, 0.40, 0.30, 0, 0, 0]);
+t2 = 20;
 
 % Final, A
-t3 = 100;
+t3 = 30;
 
 %------------------------------------------------------------------------------
 %% Perform simulation in simulink
