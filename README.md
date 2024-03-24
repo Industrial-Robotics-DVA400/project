@@ -13,7 +13,7 @@ To run the simulink simulation of the Inverse dynamics controller, do one of the
 + Main approach: open file "IDC\_OS.slx" and execute simulation through simulink by pressing "Simulate model" (ctrl+T)
 + Alternative approach: run section "Perform simulation in simulink" in the "IDC\_OS.m" file
 
-\section{Visualize Output}
+## Visualize Output
 To visualize the system output and motion, execute the following sections in the file "IDC\_OS.m":
 + Create figure 
     - Only needs to be executed one time in the beginning
