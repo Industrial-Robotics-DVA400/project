@@ -2,9 +2,6 @@
 % Author: Carl Larsson, Pontus Svensson
 % Description: Inverse dynamics control in operational space
 % Date: 18-03-2024
-%
-% This software is licensed under the MIT License
-% Refer to the LICENSE file for details
 %==============================================================================
 %% Clean up
 clear
