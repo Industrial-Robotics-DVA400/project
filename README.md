@@ -1,4 +1,6 @@
 # Inverse dynamics control of 6-DOF manipulator in operational space
+This project covers the control scheme for a 6-DOF manipulator using inverse dynamics control in operational space.
+
 ## Initialization 
 The following steps need to be executed to initialize in preperation of simulation:
 + Open file "IDC\_OS.m"
