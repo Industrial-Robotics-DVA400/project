@@ -1,7 +1,10 @@
 %==============================================================================
-% Author: Carl Larsson
+% Author: Carl Larsson, Pontus Svensson
 % Description: Inverse dynamics control in operational space
 % Date: 18-03-2024
+%
+% This software is licensed under the MIT License
+% Refer to the LICENSE file for details
 %==============================================================================
 %% Clean up
 clear
@@ -31,13 +34,17 @@ weights = transpose([0.1, 0.1, 0.1, 1, 1, 1]);
 initialguess = robot.homeConfiguration;
 
 % Proportional matrix
-K_P = 2*eye(n_joints);
+% Position
+K_P = 3*eye(n_joints);
+% Orientation
 K_P(4,4) = 0.1*K_P(4,4);
 K_P(5,5) = 0.1*K_P(5,5);
 K_P(6,6) = 0.1*K_P(6,6);
 
 % Derivative matrix
-K_D = 1*eye(n_joints);
+% Position
+K_D = 2*eye(n_joints);
+% Orientation
 K_D(4,4) = 0.1*K_D(4,4);
 K_D(5,5) = 0.1*K_D(5,5);
 K_D(6,6) = 0.1*K_D(6,6);
@@ -48,9 +55,9 @@ K_D(6,6) = 0.1*K_D(6,6);
 %------------------------------------------------------------------------------
 
 % 0 initial velocity
-xd = zeros(n_joints,1);
+x_dot = zeros(n_joints,1);
 
-% Initial, A
+% Initial point, A
 x0 = transpose([0.30, 0.30, 0.30, 0, 0, 0]);
 t0 = 0;
 % For setting initial condition of integrator
@@ -64,13 +71,15 @@ t1 = 10;
 x2 = transpose([0.40, 0.40, 0.30, 0, 0, 0]);
 t2 = 20;
 
-% Final, A
+% Final point, A
+x0;
 t3 = 30;
 
 %------------------------------------------------------------------------------
 %% Perform simulation in simulink
 %------------------------------------------------------------------------------
 
+% Alternative way to run simulation in simulink
 out = sim('IDC_OS.slx');
 
 %------------------------------------------------------------------------------
@@ -80,7 +89,8 @@ out = sim('IDC_OS.slx');
 close all
 figure(); 
 
-%% Redraw
+%% Draw/redraw
+% Execute this section again to redraw motion
 
 numSamples = size(out.q,3);
 jointsValueMat = reshape(out.q,[n_joints,numSamples]);
